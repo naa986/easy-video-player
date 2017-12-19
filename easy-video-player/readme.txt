@@ -14,6 +14,10 @@ Easy Video Player is a WordPress video player that allows you to add video to yo
 
 [Easy Video Player](https://noorsplugin.com/wordpress-video-plugin/) is a user-friendly WordPress video plugin to showcase your videos. You can embed both self-hosted videos or videos that are externally hosted using direct links.
 
+= Requirements =
+
+* A self-hosted website running on [WordPress hosting](https://noorsplugin.com/best-cheap-wordpress-hosting/)
+
 = Easy Video Player Features =
 
 * Embed MP4 video into your website
@@ -85,7 +89,7 @@ By default, the mediaelement template only loads the "metadata" of a video when 
 
 `[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" preload="auto" template="mediaelement"]`
 
-For detailed documentation please visit the [Easy Video Player](https://noorsplugin.com/wordpress-video-plugin/) plugin page
+For detailed documentation please visit the [WordPress video plugin](https://noorsplugin.com/wordpress-video-plugin/) page
 
 = Plugin Language Translation =
 
