@@ -33,6 +33,8 @@ Easy Video Player is a WordPress video player that allows you to add video to yo
 
 = Easy Video Player Plugin Usage =
 
+https://www.youtube.com/watch?v=RUaDFo4b3Ww&rel=0
+
 **Settings Configuration**
 
 It's pretty easy to set up this video player plugin. Once you have installed the plugin simply navigate to the Settings menu where you will be able to configure some options. Mostly you just to need check the "Enable jQuery" option. That will allow the plugin to make use of jQuery library.
