@@ -1,10 +1,10 @@
 === Easy Video Player ===
 Contributors: naa986
 Donate link: https://noorsplugin.com/
-Tags: video, wpvideo, flash, html5, iPad, iphone, ipod, mobile, playlists, embed video, flowplayer, video html5, flash player, player, video player
+Tags: video, player, flash, html5, mobile
 Requires at least: 4.3
 Tested up to: 5.0
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,6 +32,10 @@ Easy Video Player is a WordPress video player that allows you to add video to yo
 * Embed video using MediaElement player or default WordPress video player
 
 = Easy Video Player Plugin Usage =
+
+https://www.youtube.com/watch?v=EpoA4m3mkuI&rel=0
+
+**Embedding a Video in the Classic Editor**
 
 https://www.youtube.com/watch?v=RUaDFo4b3Ww&rel=0
 
@@ -137,6 +141,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.1.8 =
+* Updated the player to version 7.2.7.
 
 = 1.1.7 =
 * Updated the player to version 7.2.1.
