@@ -3,7 +3,7 @@ Contributors: naa986
 Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile
 Requires at least: 4.3
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: 1.1.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,7 +16,7 @@ Easy Video Player is a WordPress video player that allows you to add video to yo
 
 = Requirements =
 
-* A self-hosted website running on [WordPress hosting](https://noorsplugin.com/best-cheap-wordpress-hosting/)
+* A self-hosted website running on [WordPress hosting](https://noorsplugin.com/how-to-choose-the-right-wordpress-hosting/)
 
 = Easy Video Player Features =
 
