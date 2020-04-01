@@ -3,7 +3,7 @@ Contributors: naa986
 Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile
 Requires at least: 4.3
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: 1.1.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
