@@ -2,7 +2,7 @@
 
 ## Description
 
-[Easy Video Player](https://noorsplugin.com/wordpress-video-plugin/) is a user-friendly WordPress video plugin for embedding and showcasing your videos. You can embed both self-hosted videos or videos that are externally hosted using direct links. It was developed by [noorsplugin](https://noorsplugin.com/) and is currently being used on over 30,000 websites.
+[Easy Video Player](https://noorsplugin.com/wordpress-video-plugin/) is a user-friendly WordPress video plugin for embedding and showcasing your videos. You can embed both self-hosted videos or videos that are externally hosted using direct links. It was developed by [noorsplugin](https://noorsplugin.com/) and is currently being used on over 40,000 websites.
 
 ## Easy Video Player Features
 
@@ -13,8 +13,7 @@
 * Embed video with autoplay
 * Embed video with loop
 * Embed video with muted enabled
-* Customize the video player using modifier classes
-* Embed video using three different skins
+* Customize the video player using classes
 * Embed video using MediaElement player or default WordPress video player
 
 ## Easy Video Player Plugin Usage
@@ -41,23 +40,15 @@ If you want a particular video to start playing when the page loads, you can set
 
 By default, the player takes up the full width of the content area. You can easily control the size by specifying a width for it:
 ```
-[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" width="500"]
+[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" width="640"]
 ```
 The height will be automatically determined based on the ratio (please see the "Control Player Ratio section" for details).
 
 ### Control Player Ratio
 
-The player ratio is set to "0.417" by default. You can override it by specifying a different ratio in the shortcode:
+The player ratio is set to "16:9" by default. You can override it by specifying a different ratio in the shortcode:
 ```
-[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" ratio="0.345"]
-```
-### Control Player Skin
-
-The video player comes with a default skin. But you can override it by specifying a different skin in the shortcode:
-```
-[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" class="fp-minimal"]
-
-[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" class="fp-playful"]
+[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" ratio="4:3"]
 ```
 ### Video Loop
 
