@@ -2,23 +2,23 @@
 Contributors: naa986
 Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile
-Requires at least: 4.3
-Tested up to: 5.4
-Stable tag: 1.1.8
+Requires at least: 5.5
+Tested up to: 5.5
+Stable tag: 1.1.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Easy Video Player is a WordPress video player that allows you to add video to your WordPress site.
+Easy Video Player is a WordPress video player that allows you to add videos to your WordPress site.
 
 == Description ==
 
 [Easy Video Player](https://noorsplugin.com/wordpress-video-plugin/) is a user-friendly WordPress video plugin to showcase your videos. You can embed both self-hosted videos or videos that are externally hosted using direct links.
 
-= Requirements =
+=== Requirements ===
 
 * A self-hosted website running on [WordPress hosting](https://noorsplugin.com/how-to-choose-the-right-wordpress-hosting/)
 
-= Easy Video Player Features =
+=== Easy Video Player Features ===
 
 * Embed MP4 video into your website
 * Embed responsive video for a better user experience while viewing from a mobile device
@@ -27,11 +27,10 @@ Easy Video Player is a WordPress video player that allows you to add video to yo
 * Embed video with autoplay
 * Embed video with loop
 * Embed video with muted enabled
-* Customize the video player using modifier classes
-* Embed video using three different skins
+* Customize the video player using classes
 * Embed video using MediaElement player or default WordPress video player
 
-= Easy Video Player Plugin Usage =
+=== Easy Video Player Plugin Usage ===
 
 https://www.youtube.com/watch?v=EpoA4m3mkuI&rel=0
 
@@ -61,23 +60,15 @@ If you want a particular video to start playing when the page loads, you can set
 
 By default, the player takes up the full width of the content area. You can easily control the size by specifying a width for it:
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" width="500"]`
+`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" width="640"]`
 
 The height will be automatically determined based on the ratio (please see the "Control Player Ratio section" for details).
 
 **Control Player Ratio**
 
-The player ratio is set to "0.417" by default. You can override it by specifying a different ratio in the shortcode:
+The player ratio is set to "16:9" by default. You can override it by specifying a different ratio in the shortcode:
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" ratio="0.345"]`
-
-**Control Player Skin**
-
-The video player comes with a default skin. But you can override it by specifying a different skin in the shortcode:
-
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" class="fp-minimal"]`
-
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" class="fp-playful"]`
+`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" ratio="4:3"]`
 
 **Video Loop**
 
@@ -97,11 +88,11 @@ By default, the mediaelement template only loads the "metadata" of a video when 
 
 For detailed documentation please visit the [WordPress video plugin](https://noorsplugin.com/wordpress-video-plugin/) page
 
-= Plugin Language Translation =
+=== Plugin Language Translation ===
 
 If you are a non-English speaker please help [translate Easy Video Player](https://translate.wordpress.org/projects/wp-plugins/easy-video-player) into your language.
 
-= Recommended Reading =
+=== Recommended Reading ===
 
 * Easy Video Player [Documentation](https://noorsplugin.com/wordpress-video-plugin/)
 * My Other [Free WordPress Plugins](https://noorsplugin.com/wordpress-plugins/)
@@ -141,6 +132,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.1.9 =
+* Removed flowplayer (the default player) since it's no longer available.
 
 = 1.1.8 =
 * Updated the player to version 7.2.7.

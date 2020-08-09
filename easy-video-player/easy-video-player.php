@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.1.8
+Version: 1.1.9
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,8 +17,8 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.1.8';
-        var $flowplayer_version = '7.2.7';
+        var $plugin_version = '1.1.9';
+        var $player_version = '3.6.2';
 
         function __construct() {
             define('EASY_VIDEO_PLAYER_VERSION', $this->plugin_version);
@@ -32,7 +32,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
             add_action('plugins_loaded', array($this, 'plugins_loaded_handler'));
             add_action('wp_enqueue_scripts', 'easy_video_player_enqueue_scripts');
             add_action('admin_menu', array($this, 'easy_video_player_add_options_menu'));
-            add_action('wp_head', 'easy_video_player_header');
+            //add_action('wp_head', 'easy_video_player_header');
             add_shortcode('evp_embed_video', 'evp_embed_video_handler');
             //allows shortcode execution in the widget, excerpt and content
             add_filter('widget_text', 'do_shortcode');
@@ -108,20 +108,16 @@ function easy_video_player_enqueue_scripts() {
         if ($enable_jquery) {
             wp_enqueue_script('jquery');
         }
-        wp_register_script('flowplayer-js', $plugin_url . '/lib/flowplayer.min.js');
-        wp_enqueue_script('flowplayer-js');
-        wp_register_style('flowplayer-css', $plugin_url . '/lib/skin/skin.css');
-        wp_enqueue_style('flowplayer-css');
+        wp_register_style('plyr-css', $plugin_url . '/lib/plyr.css');
+        wp_enqueue_style('plyr-css');
+        wp_register_script('plyr-js', $plugin_url . '/lib/plyr.min.js');
+        wp_enqueue_script('plyr-js');
     }
 }
 
 function easy_video_player_header() {
     if (!is_admin()) {
         $fp_config = '<!-- This content is generated with the Easy Video Player plugin v' . EASY_VIDEO_PLAYER_VERSION . ' - http://noorsplugin.com/wordpress-video-plugin/ -->';
-        $fp_config .= '<script>';
-        $fp_config .= 'flowplayer.conf.embed = false;';
-        $fp_config .= 'flowplayer.conf.keyboard = false;';
-        $fp_config .= '</script>';
         $fp_config .= '<!-- Easy Video Player plugin -->';
         echo $fp_config;
     }
@@ -132,7 +128,7 @@ function evp_embed_video_handler($atts) {
         'url' => '',
         'width' => '',
         'height' => '',
-        'ratio' => '0.417',
+        'ratio' => '16:9',
         'autoplay' => 'false',
         'poster' => '',
         'loop' => '',
@@ -167,6 +163,13 @@ function evp_embed_video_handler($atts) {
         }
         return wp_video_shortcode($attr);
     }
+    //width
+    if(!empty($width)){
+        $width = ' style="max-width:'.$width.'px;"';
+    }
+    else{
+        $width = '';
+    }
     //custom video id
     if(!empty($video_id)){
         $video_id = ' id="'.$video_id.'"';
@@ -191,55 +194,39 @@ function evp_embed_video_handler($atts) {
     else{
         $muted = "";
     }
-    
-    $player = "fp" . uniqid();
-    $color = '';
-    if (!empty($poster)) {
-        $color = 'background: #000 url('.$poster.') 0 0 no-repeat;background-size: 100%;';
-    } else {
-        $color = 'background-color: #000;';
+    //poster
+    if(!empty($poster)){
+        $poster = ' data-poster="'.$poster.'"';
     }
-    $size_attr = "";
-    if (!empty($width)) {
-        $size_attr = "max-width: {$width}px;max-height: auto;";
+    else{
+        $poster = '';
     }
-    /*
-    $class_array = array('flowplayer', 'minimalist');
+    //ratio only allows 16:9/4:3
+    if($ratio == "4:3"){
+        $ratio = "4:3";
+    }
+    else{
+        $ratio = "16:9";
+    }
+    //class
     if(!empty($class)){
-        $shortcode_class_array = array_map('trim', explode(' ', $class));
-        $shortcode_class_array = array_filter( $shortcode_class_array, 'strlen' ); //remove NULL, FALSE and Empty Strings (""), but leave values of 0 (zero)
-        $shortcode_class_array = array_values($shortcode_class_array);
-        if(in_array("functional", $shortcode_class_array) || in_array("playful", $shortcode_class_array)){
-            $class_array = array_diff($class_array, array('minimalist'));
-        }
-        $class_array = array_merge($class_array, $shortcode_class_array);
-        $class_array = array_unique($class_array);
-        $class_array = array_values($class_array);
+        $class = ' class="'.$class.'"';
     }
-
-    $classes = implode(" ", $class_array);
-    */
-    
-    if(!empty($class)){
-        $class = " ".$class;
+    else{
+        $class = '';
     }
-    
-    $styles = <<<EOT
-    <style>
-        #$player {
-            $size_attr
-            $color    
-        }
-    </style>
-EOT;
-    
+    $video_id = "plyr" . uniqid(); 
     $output = <<<EOT
-        <div id="$player" data-ratio="$ratio" data-share="$share" class="flowplayer{$class}">
-            <video{$video_id}{$autoplay}{$loop}{$muted}>
-               <source type="video/mp4" src="$url"/>
-            </video>
-        </div>
-        $styles
+    <div{$width}>        
+    <video id="{$video_id}"{$autoplay}{$loop}{$muted}{$poster}{$class}>
+       <source src="$url" type="video/mp4" />
+    </video>
+    </div>        
+    <script>
+        const evplayer{$video_id} = new Plyr(document.getElementById('$video_id'));
+        evplayer{$video_id}.ratio = '{$ratio}';         
+    </script>
 EOT;
+       
     return $output;
 }
