@@ -4,7 +4,7 @@ Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile
 Requires at least: 5.5
 Tested up to: 5.5
-Stable tag: 1.1.9
+Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -132,6 +132,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.0 =
+* Made some security related improvements in the plugin
 
 = 1.1.9 =
 * Removed flowplayer (the default player) since it's no longer available.
