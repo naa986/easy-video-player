@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.0
+Version: 1.2.1
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.0';
+        var $plugin_version = '1.2.1';
         var $player_version = '3.6.2';
 
         function __construct() {
@@ -26,9 +26,6 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
         }
 
         function plugin_includes() {
-            if (is_admin()) {
-                add_filter('plugin_action_links', array($this, 'easy_video_player_plugin_action_links'), 10, 2);
-            }
             add_action('plugins_loaded', array($this, 'plugins_loaded_handler'));
             add_action('wp_enqueue_scripts', 'easy_video_player_enqueue_scripts');
             add_action('admin_menu', array($this, 'easy_video_player_add_options_menu'));
@@ -44,13 +41,6 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
             if ($this->plugin_url)
                 return $this->plugin_url;
             return $this->plugin_url = plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__));
-        }
-
-        function easy_video_player_plugin_action_links($links, $file) {
-            if ($file == plugin_basename(dirname(__FILE__) . '/easy-video-player.php')) {
-                $links[] = '<a href="options-general.php?page=easy-video-player-settings">'.__('Settings', 'easy-video-player').'</a>';
-            }
-            return $links;
         }
         
         function plugins_loaded_handler()
