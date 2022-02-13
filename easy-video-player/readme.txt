@@ -4,7 +4,7 @@ Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile
 Requires at least: 5.5
 Tested up to: 5.9
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,10 +13,6 @@ Easy Video Player is a WordPress video player that allows you to add videos to y
 == Description ==
 
 [Easy Video Player](https://noorsplugin.com/wordpress-video-plugin/) is a user-friendly WordPress video plugin to showcase your videos. You can embed both self-hosted videos or videos that are externally hosted using direct links.
-
-=== Requirements ===
-
-* A self-hosted website running on [WordPress hosting](https://noorsplugin.com/how-to-choose-the-right-wordpress-hosting/)
 
 === Easy Video Player Features ===
 
@@ -29,6 +25,10 @@ Easy Video Player is a WordPress video player that allows you to add videos to y
 * Embed video with muted enabled
 * Customize the video player using classes
 * Embed video using MediaElement player or default WordPress video player
+
+=== Easy Video Player Extensions ===
+
+* [MediaElement Skin 1](https://noorsplugin.com/wordpress-video-plugin/)
 
 === Easy Video Player Plugin Usage ===
 
@@ -132,6 +132,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.2 =
+* Added support for the MediaElement template skin.
 
 = 1.2.1 =
 * Removed plugin action links to fix an error.
