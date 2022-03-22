@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2
+Version: 1.2.2.1
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2';
+        var $plugin_version = '1.2.2.1';
         var $player_version = '3.6.2';
         var $plugin_url;
         var $plugin_path;
@@ -190,6 +190,7 @@ function evp_embed_video_handler($atts) {
         'poster' => '',
         'loop' => '',
         'muted' => '',
+        'controls' => 'controls',
         'preload' => 'metadata',
         'share' => 'true',
         'video_id' => '',
@@ -260,6 +261,13 @@ function evp_embed_video_handler($atts) {
     else{
         $poster = '';
     }
+    //controls
+    if(isset($controls) && empty($controls)){
+        $controls = "";
+    }
+    else{
+        $controls = " controls";
+    }
     //ratio only allows 16:9/4:3
     if($ratio == "4:3"){
         $ratio = "4:3";
@@ -277,7 +285,7 @@ function evp_embed_video_handler($atts) {
     $video_id = "plyr" . uniqid(); 
     $output = <<<EOT
     <div{$width}>        
-    <video id="{$video_id}"{$autoplay}{$loop}{$muted}{$poster}{$class}>
+    <video id="{$video_id}"{$autoplay}{$loop}{$muted}{$poster}{$controls}{$class}>
        <source src="$url" type="video/mp4" />
     </video>
     </div>        

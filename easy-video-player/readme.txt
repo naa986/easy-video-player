@@ -1,10 +1,10 @@
 === Easy Video Player ===
 Contributors: naa986
 Donate link: https://noorsplugin.com/
-Tags: video, player, flash, html5, mobile
+Tags: video, player, flash, html5, mobile, amp
 Requires at least: 5.5
 Tested up to: 5.9
-Stable tag: 1.2.2
+Stable tag: 1.2.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,6 +25,7 @@ Easy Video Player is a WordPress video player that allows you to add videos to y
 * Embed video with muted enabled
 * Customize the video player using classes
 * Embed video using MediaElement player or default WordPress video player
+* Embed videos into AMP pages
 
 === Easy Video Player Extensions ===
 
@@ -132,6 +133,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.2.1 =
+* Fixed an issue where video controls were not visible on AMP pages.
 
 = 1.2.2 =
 * Added support for the MediaElement template skin.
