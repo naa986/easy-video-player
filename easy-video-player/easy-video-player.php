@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.1
+Version: 1.2.2.2
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,8 +17,8 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.1';
-        var $player_version = '3.6.2';
+        var $plugin_version = '1.2.2.2';
+        var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
         function __construct() {
@@ -165,9 +165,11 @@ function easy_video_player_enqueue_scripts() {
         if ($enable_jquery) {
             wp_enqueue_script('jquery');
         }
+        //wp_register_style('plyr-css', 'https://cdn.plyr.io/3.6.7/plyr.css');
         wp_register_style('plyr-css', $plugin_url . '/lib/plyr.css');
         wp_enqueue_style('plyr-css');
-        wp_register_script('plyr-js', $plugin_url . '/lib/plyr.min.js');
+        //wp_register_script('plyr-js', 'https://cdn.plyr.io/3.6.7/plyr.js');
+        wp_register_script('plyr-js', $plugin_url . '/lib/plyr.js');
         wp_enqueue_script('plyr-js');
     }
 }
@@ -282,6 +284,8 @@ function evp_embed_video_handler($atts) {
     else{
         $class = '';
     }
+    $icon_url = EASY_VIDEO_PLAYER_URL.'/lib/plyr.svg';
+    $blank_video = EASY_VIDEO_PLAYER_URL.'/lib/blank.mp4';
     $video_id = "plyr" . uniqid(); 
     $output = <<<EOT
     <div{$width}>        
@@ -291,7 +295,9 @@ function evp_embed_video_handler($atts) {
     </div>        
     <script>
         const evplayer{$video_id} = new Plyr(document.getElementById('$video_id'));
-        evplayer{$video_id}.ratio = '{$ratio}';         
+        evplayer{$video_id}.ratio = '{$ratio}';
+        evplayer{$video_id}.iconUrl = '{$icon_url}';
+        evplayer{$video_id}.blankVideo = '{$blank_video}';  
     </script>
 EOT;
        

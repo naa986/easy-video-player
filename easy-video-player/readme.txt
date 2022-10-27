@@ -3,8 +3,8 @@ Contributors: naa986
 Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile, amp
 Requires at least: 5.5
-Tested up to: 6.0
-Stable tag: 1.2.2.1
+Tested up to: 6.1
+Stable tag: 1.2.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -133,6 +133,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.2.2 =
+* Updated the player to version 3.6.7.
 
 = 1.2.2.1 =
 * Fixed an issue where video controls were not visible on AMP pages.
