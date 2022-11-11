@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.2
+Version: 1.2.2.3
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.2';
+        var $plugin_version = '1.2.2.3';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -227,14 +227,14 @@ function evp_embed_video_handler($atts) {
     }
     //width
     if(!empty($width)){
-        $width = ' style="max-width:'.$width.'px;"';
+        $width = ' style="'.esc_attr('max-width:'.$width.'px;').'"';
     }
     else{
         $width = '';
     }
     //custom video id
     if(!empty($video_id)){
-        $video_id = ' id="'.$video_id.'"';
+        $video_id = ' id="'.esc_attr($video_id).'"';
     }
     //autoplay
     if ($autoplay == "true") {
@@ -258,7 +258,7 @@ function evp_embed_video_handler($atts) {
     }
     //poster
     if(!empty($poster)){
-        $poster = ' data-poster="'.$poster.'"';
+        $poster = ' data-poster="'.esc_url($poster).'"';
     }
     else{
         $poster = '';
@@ -279,7 +279,7 @@ function evp_embed_video_handler($atts) {
     }
     //class
     if(!empty($class)){
-        $class = ' class="'.$class.'"';
+        $class = ' class="'.esc_attr($class).'"';
     }
     else{
         $class = '';
@@ -287,12 +287,13 @@ function evp_embed_video_handler($atts) {
     $icon_url = EASY_VIDEO_PLAYER_URL.'/lib/plyr.svg';
     $blank_video = EASY_VIDEO_PLAYER_URL.'/lib/blank.mp4';
     $video_id = "plyr" . uniqid(); 
-    $output = <<<EOT
-    <div{$width}>        
-    <video id="{$video_id}"{$autoplay}{$loop}{$muted}{$poster}{$controls}{$class}>
-       <source src="$url" type="video/mp4" />
+    $video_output = '
+    <div'.$width.'>        
+    <video id="'.$video_id.'"'.$autoplay.$loop.$muted.$poster.$controls.$class.'>
+       <source src="'.esc_url($url).'" type="video/mp4" />
     </video>
-    </div>        
+    </div>';
+    $script_output = <<<EOT
     <script>
         const evplayer{$video_id} = new Plyr(document.getElementById('$video_id'));
         evplayer{$video_id}.ratio = '{$ratio}';
@@ -300,6 +301,6 @@ function evp_embed_video_handler($atts) {
         evplayer{$video_id}.blankVideo = '{$blank_video}';  
     </script>
 EOT;
-       
+    $output = $video_output.$script_output;   
     return $output;
 }
