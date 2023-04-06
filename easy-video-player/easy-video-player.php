@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.3
+Version: 1.2.2.4
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.3';
+        var $plugin_version = '1.2.2.4';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -87,7 +87,8 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
         {
             $plugin_tabs = array(
                 'easy-video-player-settings' => __('General', 'easy-video-player'),
-                'easy-video-player-settings&action=extensions' => __('Extensions', 'easy-video-player')
+                'easy-video-player-settings&action=extensions' => __('Add-ons', 'easy-video-player'),
+                'easy-video-player-settings&action=advanced' => __('Advanced', 'easy-video-player'),
             );
             $url = "https://noorsplugin.com/wordpress-video-plugin/";
             $link_text = sprintf(wp_kses(__('Please visit the <a target="_blank" href="%s">Easy Video Player</a> documentation page for usage instructions.', 'easy-video-player'), array('a' => array('href' => array(), 'target' => array()))), esc_url($url));          
@@ -122,6 +123,9 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
                     case 'extensions':
                         easy_video_player_display_extensions();
                         break;
+                    case 'advanced':
+                        $this->advanced_settings();
+                        break;
                 }
             }
             else
@@ -153,6 +157,47 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
             </form>
             <?php
         }
+        
+        function advanced_settings() {
+            ?>
+            <div class="update-nag"><?php _e('Settings from add-ons will appear here.', 'easy-video-player');?></div>
+            <?php        
+            if (isset($_POST['easy_video_player_update_advanced_settings'])) {
+                $nonce = $_REQUEST['_wpnonce'];
+                if (!wp_verify_nonce($nonce, 'easy_video_player_advanced_settings')) {
+                    wp_die('Error! Nonce Security Check Failed! please save the settings again.');
+                }
+                $post = $_POST;
+                do_action('easy_video_player_advanced_settings_submitted', $post);
+                echo '<div id="message" class="updated fade"><p><strong>';
+                echo __('Settings Saved!', 'easy-video-player');
+                echo '</strong></p></div>';
+            }
+            $settings_fields = '';
+            $settings_fields = apply_filters('easy_video_player_advanced_settings_fields', $settings_fields);
+            if(empty($settings_fields)){
+                return;
+            }
+            ?>
+            <form method="post" action="">
+                <?php wp_nonce_field('easy_video_player_advanced_settings'); ?>
+
+                <table class="form-table">
+                    <tbody>                                    
+                        <?php
+                        if(!empty($settings_fields)){
+                            echo $settings_fields;
+                        }
+                        ?>
+                    </tbody>
+
+                </table>
+
+                <p class="submit"><input type="submit" name="easy_video_player_update_advanced_settings" id="easy_video_player_update_advanced_settings" class="button button-primary" value="<?php _e('Save Changes', 'easy-video-player');?>"></p>
+            </form>
+            <?php
+        }
+    
     }
 
     $GLOBALS['easy_video_player'] = new EASY_VIDEO_PLAYER();
@@ -198,9 +243,17 @@ function evp_embed_video_handler($atts) {
         'video_id' => '',
         'class' => '',
         'template' => '',
+        'user_only_video' => '',
+        'allowed_user_roles' => '',
     ), $atts);
     $atts = array_map('sanitize_text_field', $atts);
     extract($atts);
+    //
+    $user_only_video_msg = '';
+    $user_only_video_msg = apply_filters('evp_user_only_video', $user_only_video_msg, $atts);
+    if(!empty($user_only_video_msg)){
+        return $user_only_video_msg;
+    }
     //check if mediaelement template is specified
     if($template=='mediaelement'){
         $attr = array();

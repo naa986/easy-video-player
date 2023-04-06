@@ -16,6 +16,14 @@ function easy_video_player_display_extensions()
     );
     array_push($extensions_data, $extension_1);
     
+    $extension_2 = array(
+        'name' => 'User Only Videos',
+        'thumbnail' => EASY_VIDEO_PLAYER_URL.'/extensions/images/evp-user-only-videos.png',
+        'description' => 'Restrict videos to WordPress users or users with specific roles',
+        'page_url' => 'https://noorsplugin.com/easy-video-player-user-only-videos/',
+    );
+    array_push($extensions_data, $extension_2);
+    
     //Display the list
     $output = '';
     foreach ($extensions_data as $extension) {
