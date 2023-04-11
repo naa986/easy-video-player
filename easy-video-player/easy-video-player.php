@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.4
+Version: 1.2.2.5
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.4';
+        var $plugin_version = '1.2.2.5';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -215,13 +215,18 @@ function easy_video_player_enqueue_scripts() {
         wp_enqueue_style('plyr-css');
         //wp_register_script('plyr-js', 'https://cdn.plyr.io/3.6.7/plyr.js');
         wp_register_script('plyr-js', $plugin_url . '/lib/plyr.js');
+        $easy_video_player = array(
+            'plyr_iconUrl' => $plugin_url.'/lib/plyr.svg',
+            'plyr_blankVideo' => $plugin_url.'/lib/blank.mp4',
+        );
+        wp_localize_script('plyr-js', 'easy_video_player', $easy_video_player);
         wp_enqueue_script('plyr-js');
     }
 }
 
 function easy_video_player_header() {
     if (!is_admin()) {
-        $fp_config = '<!-- This content is generated with the Easy Video Player plugin v' . EASY_VIDEO_PLAYER_VERSION . ' - http://noorsplugin.com/wordpress-video-plugin/ -->';
+        $fp_config = '<!-- This content is generated with the Easy Video Player plugin v' . EASY_VIDEO_PLAYER_VERSION . ' - https://noorsplugin.com/wordpress-video-plugin/ -->';
         $fp_config .= '<!-- Easy Video Player plugin -->';
         echo $fp_config;
     }
