@@ -24,6 +24,14 @@ function easy_video_player_display_extensions()
     );
     array_push($extensions_data, $extension_2);
     
+    $extension_3 = array(
+        'name' => 'Video Schema',
+        'thumbnail' => EASY_VIDEO_PLAYER_URL.'/extensions/images/evp-schema.png',
+        'description' => 'Help search engines discover your videos by adding schema data',
+        'page_url' => 'https://noorsplugin.com/easy-video-player-schema/',
+    );
+    array_push($extensions_data, $extension_3);
+    
     //Display the list
     $output = '';
     foreach ($extensions_data as $extension) {

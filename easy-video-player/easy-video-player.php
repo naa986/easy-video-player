@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.5
+Version: 1.2.2.6
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.5';
+        var $plugin_version = '1.2.2.6';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -250,6 +250,11 @@ function evp_embed_video_handler($atts) {
         'template' => '',
         'user_only_video' => '',
         'allowed_user_roles' => '',
+        'schema' => '',
+        'name' => '',
+        'description' => '',
+        'duration' => '',
+        'uploaddate' => '',
     ), $atts);
     $atts = array_map('sanitize_text_field', $atts);
     extract($atts);
@@ -281,7 +286,13 @@ function evp_embed_video_handler($atts) {
         if (!empty($preload)){
             $attr['preload'] = $preload;
         }
-        return wp_video_shortcode($attr);
+        $output = wp_video_shortcode($attr);
+        $video_schema = '';
+        $video_schema = apply_filters('evp_schema', $video_schema, $atts);
+        if(!empty($video_schema)){
+            $output .= $video_schema;
+        }
+        return $output;
     }
     //width
     if(!empty($width)){
@@ -359,6 +370,11 @@ function evp_embed_video_handler($atts) {
         evplayer{$video_id}.blankVideo = '{$blank_video}';  
     </script>
 EOT;
-    $output = $video_output.$script_output;   
+    $output = $video_output.$script_output;
+    $video_schema = '';
+    $video_schema = apply_filters('evp_schema', $video_schema, $atts);
+    if(!empty($video_schema)){
+        $output .= $video_schema;
+    }
     return $output;
 }
