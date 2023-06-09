@@ -32,6 +32,14 @@ function easy_video_player_display_extensions()
     );
     array_push($extensions_data, $extension_3);
     
+    $extension_4 = array(
+        'name' => 'Disable Right Click',
+        'thumbnail' => EASY_VIDEO_PLAYER_URL.'/extensions/images/evp-disable-right-click.png',
+        'description' => 'Disable right click on the Easy Video Player',
+        'page_url' => 'https://noorsplugin.com/easy-video-player-disable-right-click/',
+    );
+    array_push($extensions_data, $extension_4);
+    
     //Display the list
     $output = '';
     foreach ($extensions_data as $extension) {

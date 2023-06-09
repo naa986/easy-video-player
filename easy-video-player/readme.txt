@@ -4,7 +4,7 @@ Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile, amp
 Requires at least: 5.5
 Tested up to: 6.2
-Stable tag: 1.2.2.6
+Stable tag: 1.2.2.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,6 +32,7 @@ Easy Video Player is a WordPress video player that allows you to add videos to y
 * [MediaElement Skin 1](https://noorsplugin.com/wordpress-video-plugin/)
 * [User Only Videos](https://noorsplugin.com/easy-video-player-user-only-videos/)
 * [Video Schema](https://noorsplugin.com/easy-video-player-schema/)
+* [Disable Right Click](https://noorsplugin.com/easy-video-player-disable-right-click/)
 
 === Easy Video Player Plugin Usage ===
 
@@ -135,6 +136,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.2.7 =
+* Added support for disable right click.
 
 = 1.2.2.6 =
 * Added support for video schema to improve SEO.
