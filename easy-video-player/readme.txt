@@ -4,7 +4,7 @@ Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile, amp
 Requires at least: 5.5
 Tested up to: 6.2
-Stable tag: 1.2.2.7
+Stable tag: 1.2.2.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -70,9 +70,11 @@ The height will be automatically determined based on the ratio (please see the "
 
 **Control Player Ratio**
 
-The player ratio is set to "16:9" by default. You can override it by specifying a different ratio in the shortcode:
+You can override the default aspect ratio by specifying a different one in the shortcode:
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" ratio="4:3"]`
+`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" ratio="16:9"]`
+
+If the player does not support your specified aspect ratio it will load the default.
 
 **Video Loop**
 
@@ -136,6 +138,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.2.8 =
+* Fixed an issue where the specified aspect ratio was not getting applied.
 
 = 1.2.2.7 =
 * Added support for disable right click.

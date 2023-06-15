@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.7
+Version: 1.2.2.8
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.7';
+        var $plugin_version = '1.2.2.8';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -237,7 +237,7 @@ function evp_embed_video_handler($atts) {
         'url' => '',
         'width' => '',
         'height' => '',
-        'ratio' => '16:9',
+        'ratio' => '',
         'autoplay' => 'false',
         'poster' => '',
         'loop' => '',
@@ -340,12 +340,13 @@ function evp_embed_video_handler($atts) {
         $controls = " controls";
     }
     //ratio only allows 16:9/4:3
+    /*
     if($ratio == "4:3"){
         $ratio = "4:3";
     }
     else{
         $ratio = "16:9";
-    }
+    }*/
     //class
     if(!empty($class)){
         $class = ' class="easy-video-player '.esc_attr($class).'"';
@@ -356,6 +357,10 @@ function evp_embed_video_handler($atts) {
     $icon_url = EASY_VIDEO_PLAYER_URL.'/lib/plyr.svg';
     $blank_video = EASY_VIDEO_PLAYER_URL.'/lib/blank.mp4';
     $video_id = "plyr" . uniqid(); 
+    $ratio_code = '';
+    if(isset($ratio) && !empty($ratio)){
+        $ratio_code = "evplayer{$video_id}.ratio = '{$ratio}';";
+    }
     $video_output = '
     <div'.$width.'>        
     <video id="'.$video_id.'"'.$autoplay.$loop.$muted.$poster.$controls.$class.'>
@@ -365,7 +370,7 @@ function evp_embed_video_handler($atts) {
     $script_output = <<<EOT
     <script>
         const evplayer{$video_id} = new Plyr(document.getElementById('$video_id'));
-        evplayer{$video_id}.ratio = '{$ratio}';
+        $ratio_code
         evplayer{$video_id}.iconUrl = '{$icon_url}';
         evplayer{$video_id}.blankVideo = '{$blank_video}';  
     </script>
