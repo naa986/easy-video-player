@@ -4,7 +4,7 @@ Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile, amp
 Requires at least: 5.5
 Tested up to: 6.3
-Stable tag: 1.2.2.9
+Stable tag: 1.2.2.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -138,6 +138,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.2.10 =
+* Additional check for the settings link.
 
 = 1.2.2.9 =
 * Set a default ratio for videos if not specified.
