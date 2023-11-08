@@ -1,9 +1,9 @@
 === Easy Video Player ===
 Contributors: naa986
 Donate link: https://noorsplugin.com/
-Tags: video, player, flash, html5, mobile, amp
+Tags: video, player, flash, html5, mobile
 Requires at least: 5.5
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: 1.2.2.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,16 +18,15 @@ Easy Video Player is a WordPress video player that allows you to add videos to y
 
 * Embed MP4 video into your website
 * Embed responsive video for a better user experience while viewing from a mobile device
-* Embed HTML5 video which are compatible with all major browsers
+* Embed HTML5 video which are compatible with major browsers
 * Embed video with poster images
-* Embed video with autoplay
+* Embed video with autoplay if the device and browser support it
 * Embed video with loop
 * Embed video with muted enabled
 * Customize the video player using classes
-* Embed video using MediaElement player or default WordPress video player
-* Embed videos into AMP pages
+* Embed video using MediaElement player
 
-=== Easy Video Player Extensions ===
+=== Easy Video Player Add-ons ===
 
 * [MediaElement Skin 1](https://noorsplugin.com/wordpress-video-plugin/)
 * [User Only Videos](https://noorsplugin.com/easy-video-player-user-only-videos/)
@@ -50,7 +49,7 @@ It's pretty easy to set up this video player plugin. Once you have installed the
 
 Now it's time to finally embed a video shortcode. To do this create a new post/page and use the following shortcode:
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4"]`
+`[evp_embed_video url="https://example.com/wp-content/uploads/videos/myvid.mp4"]`
 
 Here, url is a shortcode parameter that you need to replace with the actual URL of the video file.
 
@@ -58,13 +57,13 @@ Here, url is a shortcode parameter that you need to replace with the actual URL 
 
 If you want a particular video to start playing when the page loads, you can set the "autoplay" option to "true":
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" autoplay="true"]`
+`[evp_embed_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" autoplay="true"]`
 
 **Control Size**
 
 By default, the player takes up the full width of the content area. You can easily control the size by specifying a width for it:
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" width="640"]`
+`[evp_embed_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" width="640"]`
 
 The height will be automatically determined based on the ratio (please see the "Control Player Ratio section" for details).
 
@@ -72,7 +71,7 @@ The height will be automatically determined based on the ratio (please see the "
 
 You can override the default aspect ratio by specifying a different one in the shortcode:
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" ratio="16:9"]`
+`[evp_embed_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" ratio="16:9"]`
 
 If the player does not support your specified aspect ratio it will load the default.
 
@@ -80,28 +79,23 @@ If the player does not support your specified aspect ratio it will load the defa
 
 If you want a particular video to start playing again when it ends, you can set the "loop" option to "true":
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" loop="true"]`
+`[evp_embed_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" loop="true"]`
 
 **Video Player Template**
 
 If you want to use a different video player template, you can specify it in the "template" parameter:
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" template="mediaelement"]`
+`[evp_embed_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" template="mediaelement"]`
 
 By default, the mediaelement template only loads the "metadata" of a video when the page loads. You can set it to "auto" or "none" with the preload parameter in the shortcode.
 
-`[evp_embed_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" preload="auto" template="mediaelement"]`
+`[evp_embed_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" preload="auto" template="mediaelement"]`
 
 For detailed documentation please visit the [WordPress video plugin](https://noorsplugin.com/wordpress-video-plugin/) page
 
 === Plugin Language Translation ===
 
 If you are a non-English speaker please help [translate Easy Video Player](https://translate.wordpress.org/projects/wp-plugins/easy-video-player) into your language.
-
-=== Recommended Reading ===
-
-* Easy Video Player [Documentation](https://noorsplugin.com/wordpress-video-plugin/)
-* My Other [Free WordPress Plugins](https://noorsplugin.com/wordpress-plugins/)
 
 == Installation ==
 
@@ -123,7 +117,7 @@ Yes.
 
 = Can I autoplay a video? =
 
-Yes.
+Yes, as long as the device and browser allow it.
 
 = Can I embed responsive videos using this plugin? =
 
