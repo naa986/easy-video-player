@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.10
+Version: 1.2.2.11
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.10';
+        var $plugin_version = '1.2.2.11';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -357,6 +357,7 @@ function evp_embed_video_handler($atts) {
     else{
         $class = ' class="easy-video-player"';
     }
+    $esc_js = 'esc_js';
     $icon_url = EASY_VIDEO_PLAYER_URL.'/lib/plyr.svg';
     $blank_video = EASY_VIDEO_PLAYER_URL.'/lib/blank.mp4';
     $video_id = "plyr" . uniqid(); 
@@ -373,7 +374,7 @@ function evp_embed_video_handler($atts) {
     $script_output = <<<EOT
     <script>
         const evplayer{$video_id} = new Plyr(document.getElementById('$video_id'));
-        evplayer{$video_id}.ratio = '{$ratio_code}';
+        evplayer{$video_id}.ratio = '{$esc_js($ratio_code)}';
         evplayer{$video_id}.iconUrl = '{$icon_url}';
         evplayer{$video_id}.blankVideo = '{$blank_video}';  
     </script>
