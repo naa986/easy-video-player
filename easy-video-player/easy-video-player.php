@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.11
+Version: 1.2.2.12
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.11';
+        var $plugin_version = '1.2.2.12';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -46,14 +46,16 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
         }
 
         function plugin_url() {
-            if ($this->plugin_url)
+            if ($this->plugin_url){
                 return $this->plugin_url;
+            }
             return $this->plugin_url = plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__));
         }
 
         function plugin_path() {
-            if ($this->plugin_path)
+            if ($this->plugin_path){
                 return $this->plugin_path;
+            }
             return $this->plugin_path = untrailingslashit(plugin_dir_path(__FILE__));
         }
         

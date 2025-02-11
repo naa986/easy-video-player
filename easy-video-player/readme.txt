@@ -4,7 +4,7 @@ Donate link: https://noorsplugin.com/
 Tags: video, player, flash, html5, mobile
 Requires at least: 5.5
 Tested up to: 6.7
-Stable tag: 1.2.2.11
+Stable tag: 1.2.2.12
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -132,6 +132,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.2.2.12 =
+* Indented some code.
 
 = 1.2.2.11 =
 * Improved shortcode sanitization suggested by Patchstack.
