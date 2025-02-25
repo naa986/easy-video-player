@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.12
+Version: 1.2.2.13
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -17,7 +17,7 @@ if (!class_exists('EASY_VIDEO_PLAYER')) {
 
     class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.12';
+        var $plugin_version = '1.2.2.13';
         var $player_version = '3.6.7';
         var $plugin_url;
         var $plugin_path;
@@ -268,6 +268,10 @@ function evp_embed_video_handler($atts) {
     $user_only_video_msg = apply_filters('evp_user_only_video', $user_only_video_msg, $atts);
     if(!empty($user_only_video_msg)){
         return $user_only_video_msg;
+    }
+    //
+    if(!isset($url) || empty($url)){
+        return __('No video URL in the shortcode', 'easy-video-player');
     }
     //check if mediaelement template is specified
     if($template=='mediaelement'){
