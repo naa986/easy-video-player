@@ -35,7 +35,7 @@ Easy Video Player is a WordPress video player that allows you to add videos to y
 
 === Easy Video Player Plugin Usage ===
 
-https://www.youtube.com/watch?v=EpoA4m3mkuI&rel=0
+https://www.youtube.com/watch?v=IvDbycfQdlM&rel=0
 
 **Embedding a Video in the Classic Editor**
 
