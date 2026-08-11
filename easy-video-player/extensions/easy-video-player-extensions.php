@@ -40,6 +40,14 @@ function easy_video_player_display_extensions()
     );
     array_push($extensions_data, $extension_4);
     
+    $extension_5 = array(
+        'name' => 'Player Template 1',
+        'thumbnail' => EASY_VIDEO_PLAYER_URL.'/extensions/images/evp-template-1.png',
+        'description' => 'Display videos using player template 1',
+        'page_url' => 'https://noorsplugin.com/easy-video-player-template-1/',
+    );
+    array_push($extensions_data, $extension_5);
+    
     //Display the list
     $output = '';
     foreach ($extensions_data as $extension) {
