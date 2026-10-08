@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Easy Video Player
-Version: 1.2.2.14
+Version: 1.2.2.15
 Plugin URI: https://noorsplugin.com/wordpress-video-plugin/
 Author: naa986
 Author URI: https://noorsplugin.com/
@@ -13,200 +13,225 @@ Domain Path: /languages
 if (!defined('ABSPATH')) {
     exit;
 }
-if (!class_exists('EASY_VIDEO_PLAYER')) {
 
-    class EASY_VIDEO_PLAYER {
+class EASY_VIDEO_PLAYER {
 
-        var $plugin_version = '1.2.2.14';
-        var $player_version = '3.6.7';
-        var $plugin_url;
-        var $plugin_path;
-        function __construct() {
-            define('EASY_VIDEO_PLAYER_VERSION', $this->plugin_version);
-            define('EASY_VIDEO_PLAYER_SITE_URL',site_url());
-            define('EASY_VIDEO_PLAYER_URL', $this->plugin_url());
-            define('EASY_VIDEO_PLAYER_PATH', $this->plugin_path());
-            $this->plugin_includes();
-        }
-
-        function plugin_includes() {
-            if(is_admin())
-            {
-                include_once('extensions/easy-video-player-extensions.php');
-            }
-            add_action('plugins_loaded', array($this, 'plugins_loaded_handler'));
-            add_action('wp_enqueue_scripts', 'easy_video_player_enqueue_scripts');
-            add_action('admin_menu', array($this, 'easy_video_player_add_options_menu'));
-            //add_action('wp_head', 'easy_video_player_header');
-            add_shortcode('evp_embed_video', 'evp_embed_video_handler');
-            //allows shortcode execution in the widget, excerpt and content
-            add_filter('widget_text', 'do_shortcode');
-            add_filter('the_excerpt', 'do_shortcode', 11);
-            add_filter('the_content', 'do_shortcode', 11);
-        }
-
-        function plugin_url() {
-            if ($this->plugin_url){
-                return $this->plugin_url;
-            }
-            return $this->plugin_url = plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__));
-        }
-
-        function plugin_path() {
-            if ($this->plugin_path){
-                return $this->plugin_path;
-            }
-            return $this->plugin_path = untrailingslashit(plugin_dir_path(__FILE__));
-        }
-        
-        function add_plugin_action_links($links, $file)
-        {
-            if ( $file == plugin_basename( dirname( __FILE__ ) . '/easy-video-player.php' ) )
-            {
-                $links[] = '<a href="options-general.php?page=easy-video-player-settings">'.__('Settings', 'easy-video-player').'</a>';
-            }
-            return $links;
-        }
-        
-        function plugins_loaded_handler()
-        {
-            if(is_admin() && current_user_can('manage_options'))
-            {
-                add_filter('plugin_action_links', array($this,'add_plugin_action_links'), 10, 2 );
-            }
-            load_plugin_textdomain('easy-video-player', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/'); 
-        }
-
-        function easy_video_player_add_options_menu() {
-            if (is_admin()) {
-                add_options_page(__('Easy Video Player', 'easy-video-player'), __('Easy Video Player', 'easy-video-player'), 'manage_options', 'easy-video-player-settings', array($this, 'easy_video_player_options_page'));
-            }
-            add_action('admin_init', array(&$this, 'easy_video_player_add_settings'));
-        }
-
-        function easy_video_player_add_settings() {
-            register_setting('easy-video-player-settings-group', 'evp_enable_jquery');
-        }
-
-        function easy_video_player_options_page() 
-        {
-            $plugin_tabs = array(
-                'easy-video-player-settings' => __('General', 'easy-video-player'),
-                'easy-video-player-settings&action=extensions' => __('Add-ons', 'easy-video-player'),
-                'easy-video-player-settings&action=advanced' => __('Advanced', 'easy-video-player'),
-            );
-            $url = "https://noorsplugin.com/wordpress-video-plugin/";
-            $link_text = sprintf(wp_kses(__('Please visit the <a target="_blank" href="%s">Easy Video Player</a> documentation page for usage instructions.', 'easy-video-player'), array('a' => array('href' => array(), 'target' => array()))), esc_url($url));          
-            echo '<div class="wrap">';               
-            echo '<h2>Easy Video Player - v'.$this->plugin_version.'</h2>';
-            echo '<div class="notice notice-info">'.$link_text.'</div>';
-            echo '<div id="poststuff"><div id="post-body">';
-
-            if (isset($_GET['page'])) {
-                $current = sanitize_text_field($_GET['page']);
-                if (isset($_GET['action'])) {
-                    $current .= "&action=" . sanitize_text_field($_GET['action']);
-                }
-            }
-            $content = '';
-            $content .= '<h2 class="nav-tab-wrapper">';
-            foreach ($plugin_tabs as $location => $tabname) {
-                if ($current == $location) {
-                    $class = ' nav-tab-active';
-                } else {
-                    $class = '';
-                }
-                $content .= '<a class="nav-tab' . $class . '" href="?page=' . $location . '">' . $tabname . '</a>';
-            }
-            $content .= '</h2>';
-            echo $content;
-
-            if(isset($_GET['action']))
-            { 
-                switch ($_GET['action'])
-                {
-                    case 'extensions':
-                        easy_video_player_display_extensions();
-                        break;
-                    case 'advanced':
-                        $this->advanced_settings();
-                        break;
-                }
-            }
-            else
-            {
-                $this->general_settings();
-            }
-
-            echo '</div></div>';
-            echo '</div>';
-        }
-        
-        function general_settings()
-        {
-            ?>
-            <form method="post" action="options.php">
-                <?php settings_fields('easy-video-player-settings-group'); ?>
-                <table class="form-table">
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Enable jQuery', 'easy-video-player')?></th>
-                        <td><input type="checkbox" id="evp_enable_jquery" name="evp_enable_jquery" value="1" <?php echo checked(1, get_option('evp_enable_jquery'), false) ?> /> 
-                            <p><i><?php _e('By default this option should always be checked.', 'easy-video-player')?></i></p>
-                        </td>
-                    </tr>
-                </table>
-
-                <p class="submit">
-                    <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-                </p>		
-            </form>
-            <?php
-        }
-        
-        function advanced_settings() {
-            ?>
-            <div class="update-nag"><?php _e('Settings from add-ons will appear here.', 'easy-video-player');?></div>
-            <?php        
-            if (isset($_POST['easy_video_player_update_advanced_settings'])) {
-                $nonce = $_REQUEST['_wpnonce'];
-                if (!wp_verify_nonce($nonce, 'easy_video_player_advanced_settings')) {
-                    wp_die('Error! Nonce Security Check Failed! please save the settings again.');
-                }
-                $post = $_POST;
-                do_action('easy_video_player_advanced_settings_submitted', $post);
-                echo '<div id="message" class="updated fade"><p><strong>';
-                echo __('Settings Saved!', 'easy-video-player');
-                echo '</strong></p></div>';
-            }
-            $settings_fields = '';
-            $settings_fields = apply_filters('easy_video_player_advanced_settings_fields', $settings_fields);
-            if(empty($settings_fields)){
-                return;
-            }
-            ?>
-            <form method="post" action="">
-                <?php wp_nonce_field('easy_video_player_advanced_settings'); ?>
-
-                <table class="form-table">
-                    <tbody>                                    
-                        <?php
-                        if(!empty($settings_fields)){
-                            echo $settings_fields;
-                        }
-                        ?>
-                    </tbody>
-
-                </table>
-
-                <p class="submit"><input type="submit" name="easy_video_player_update_advanced_settings" id="easy_video_player_update_advanced_settings" class="button button-primary" value="<?php _e('Save Changes', 'easy-video-player');?>"></p>
-            </form>
-            <?php
-        }
-    
+    var $plugin_version = '1.2.2.15';
+    var $player_version = '3.6.7';
+    var $plugin_url;
+    var $plugin_path;
+    function __construct() {
+        define('EASY_VIDEO_PLAYER_VERSION', $this->plugin_version);
+        define('EASY_VIDEO_PLAYER_SITE_URL',site_url());
+        define('EASY_VIDEO_PLAYER_URL', $this->plugin_url());
+        define('EASY_VIDEO_PLAYER_PATH', $this->plugin_path());
+        $this->plugin_includes();
     }
 
-    $GLOBALS['easy_video_player'] = new EASY_VIDEO_PLAYER();
+    function plugin_includes() {
+        if(is_admin())
+        {
+            include_once('addons/easy-video-player-addons.php');
+        }
+        add_action('plugins_loaded', array($this, 'plugins_loaded_handler'));
+        add_action('wp_enqueue_scripts', 'easy_video_player_enqueue_scripts');
+        add_action('admin_init', array($this, 'easy_video_player_add_settings'));
+        //add_action('admin_menu', array($this, 'easy_video_player_add_options_menu'));
+        add_action('admin_menu', array($this, 'plugin_menu'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+        //add_action('wp_head', 'easy_video_player_header');
+        add_shortcode('evp_embed_video', 'evp_embed_video_handler');
+        //allows shortcode execution in the widget, excerpt and content
+        add_filter('widget_text', 'do_shortcode');
+        add_filter('the_excerpt', 'do_shortcode', 11);
+        add_filter('the_content', 'do_shortcode', 11);
+    }
+    
+    function enqueue_admin_scripts($hook) {
+        /*
+        if('settings_page_easy-video-player-settings' != $hook) {
+            return;
+        }
+        */
+        if('toplevel_page_easy-video-player' != $hook) {
+            return;
+        }
+        wp_register_style('easy-video-player-addons-menu', EASY_VIDEO_PLAYER_URL.'/addons/easy-video-player-addons.css');
+        wp_enqueue_style('easy-video-player-addons-menu');
+    }
+
+    function plugin_url() {
+        if ($this->plugin_url){
+            return $this->plugin_url;
+        }
+        return $this->plugin_url = plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__));
+    }
+
+    function plugin_path() {
+        if ($this->plugin_path){
+            return $this->plugin_path;
+        }
+        return $this->plugin_path = untrailingslashit(plugin_dir_path(__FILE__));
+    }
+
+    function add_plugin_action_links($links, $file)
+    {
+        if ( $file == plugin_basename( dirname( __FILE__ ) . '/easy-video-player.php' ) )
+        {
+            //$links[] = '<a href="options-general.php?page=easy-video-player-settings">'.__('Settings', 'easy-video-player').'</a>';
+            $links[] = '<a href="admin.php?page=easy-video-player-settings">'.__('Settings', 'easy-video-player').'</a>';
+        }
+        return $links;
+    }
+
+    function plugins_loaded_handler()
+    {
+        if(is_admin() && current_user_can('manage_options'))
+        {
+            add_filter('plugin_action_links', array($this,'add_plugin_action_links'), 10, 2 );
+        }
+        load_plugin_textdomain('easy-video-player', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/'); 
+    }
+    
+    function easy_video_player_add_settings() {
+        register_setting('easy-video-player-settings-group', 'evp_enable_jquery');
+    }
+    /*
+    function easy_video_player_add_options_menu() {
+        if (is_admin()) {
+            add_options_page(__('Easy Video Player', 'easy-video-player'), __('Easy Video Player', 'easy-video-player'), 'manage_options', 'easy-video-player-settings', array($this, 'easy_video_player_options_page'));
+        }     
+    }
+    */
+    function plugin_menu() {
+        $menu_slug = 'easy-video-player';
+        add_menu_page(__('Easy Video Player', 'easy-video-player'), __('Easy Video Player', 'easy-video-player'), 'manage_options', $menu_slug, '', 'dashicons-video-alt3', '25.1');
+        add_submenu_page($menu_slug, __('Add-ons', 'easy-video-player'), __('Add-ons', 'easy-video-player'), 'manage_options', $menu_slug, 'easy_video_player_display_addons');
+        add_submenu_page($menu_slug, __('Settings', 'easy-video-player'), __('Settings', 'easy-video-player'), 'manage_options', 'easy-video-player-settings', array($this, 'settings_page'));
+    }
+    
+    //options page function easy_video_player_options_page() 
+    function settings_page()
+    {
+        $plugin_tabs = array(
+            'easy-video-player-settings' => __('General', 'easy-video-player'),
+            /*'easy-video-player-settings&action=addons' => __('Add-ons', 'easy-video-player'),*/
+            'easy-video-player-settings&action=advanced' => __('Advanced', 'easy-video-player'),
+        );
+        $url = "https://noorsplugin.com/wordpress-video-plugin/";
+        $link_text = sprintf(wp_kses(__('Please visit the <a target="_blank" href="%s">Easy Video Player</a> documentation page for setup instructions.', 'easy-video-player'), array('a' => array('href' => array(), 'target' => array()))), esc_url($url));          
+        echo '<div class="wrap">';               
+        echo '<h2>Easy Video Player - v'.$this->plugin_version.'</h2>';
+        echo '<div class="notice notice-info">'.$link_text.'</div>';
+        echo '<div id="poststuff"><div id="post-body">';
+
+        if (isset($_GET['page'])) {
+            $current = sanitize_text_field($_GET['page']);
+            if (isset($_GET['action'])) {
+                $current .= "&action=" . sanitize_text_field($_GET['action']);
+            }
+        }
+        $content = '';
+        $content .= '<h2 class="nav-tab-wrapper">';
+        foreach ($plugin_tabs as $location => $tabname) {
+            if ($current == $location) {
+                $class = ' nav-tab-active';
+            } else {
+                $class = '';
+            }
+            $content .= '<a class="nav-tab' . $class . '" href="?page=' . $location . '">' . $tabname . '</a>';
+        }
+        $content .= '</h2>';
+        echo $content;
+
+        if(isset($_GET['action']))
+        { 
+            switch ($_GET['action'])
+            {
+                /*
+                case 'addons':
+                    easy_video_player_display_addons();
+                    break;
+                */
+                case 'advanced':
+                    $this->advanced_settings();
+                    break;
+            }
+        }
+        else
+        {
+            $this->general_settings();
+        }
+
+        echo '</div></div>';
+        echo '</div>';
+    }
+
+    function general_settings()
+    {
+        ?>
+        <form method="post" action="options.php">
+            <?php settings_fields('easy-video-player-settings-group'); ?>
+            <table class="form-table">
+                <tr valign="top">
+                    <th scope="row"><?php _e('Enable jQuery', 'easy-video-player')?></th>
+                    <td><input type="checkbox" id="evp_enable_jquery" name="evp_enable_jquery" value="1" <?php echo checked(1, get_option('evp_enable_jquery'), false) ?> /> 
+                        <p><i><?php _e('By default this option should always be checked.', 'easy-video-player')?></i></p>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="submit">
+                <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+            </p>		
+        </form>
+        <?php
+    }
+
+    function advanced_settings() {
+        ?>
+        <div class="update-nag"><?php _e('Settings from add-ons will appear here.', 'easy-video-player');?></div>
+        <?php        
+        if (isset($_POST['easy_video_player_update_advanced_settings'])) {
+            $nonce = $_REQUEST['_wpnonce'];
+            if (!wp_verify_nonce($nonce, 'easy_video_player_advanced_settings')) {
+                wp_die('Error! Nonce Security Check Failed! please save the settings again.');
+            }
+            $post = $_POST;
+            do_action('easy_video_player_advanced_settings_submitted', $post);
+            echo '<div id="message" class="updated fade"><p><strong>';
+            echo __('Settings Saved!', 'easy-video-player');
+            echo '</strong></p></div>';
+        }
+        $settings_fields = '';
+        $settings_fields = apply_filters('easy_video_player_advanced_settings_fields', $settings_fields);
+        if(empty($settings_fields)){
+            return;
+        }
+        ?>
+        <form method="post" action="">
+            <?php wp_nonce_field('easy_video_player_advanced_settings'); ?>
+
+            <table class="form-table">
+                <tbody>                                    
+                    <?php
+                    if(!empty($settings_fields)){
+                        echo $settings_fields;
+                    }
+                    ?>
+                </tbody>
+
+            </table>
+
+            <p class="submit"><input type="submit" name="easy_video_player_update_advanced_settings" id="easy_video_player_update_advanced_settings" class="button button-primary" value="<?php _e('Save Changes', 'easy-video-player');?>"></p>
+        </form>
+        <?php
+    }
+
 }
+
+new EASY_VIDEO_PLAYER();
+
 
 function easy_video_player_enqueue_scripts() {
     if (!is_admin()) {
@@ -306,6 +331,13 @@ function evp_embed_video_handler($atts) {
     else if($template=='1'){
         $output = '';
         $output = apply_filters('evp_template_1', $output, $atts);
+        if(!empty($output)){
+            return $output;
+        }
+    }
+    else if($template=='native'){
+        $output = '';
+        $output = apply_filters('evp_template_native', $output, $atts);
         if(!empty($output)){
             return $output;
         }
